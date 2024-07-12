@@ -9,7 +9,7 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f9f9f9;
+            background-color: #dcdcdc; /* Light grey color */
             color: #333;
             margin: 0;
             padding: 0;
@@ -27,9 +27,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: #00416d;
+            background: #dcdcdc; /* Light grey color */
             padding: 10px 20px;
-            color: black; /* Changed to black */
+            color: black;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -127,7 +127,7 @@
         .footer {
             text-align: center;
             padding: 10px 0;
-            background: #00416d;
+            background: #dcdcdc; /* Light grey color */
             color: white;
             position: fixed;
             bottom: 0;
@@ -159,7 +159,7 @@
     </style>
     <script>
         let currentStep = 0;
-        const steps = ['intro', 'chooseType', 'chooseSolution', 'eflux', 'zaptecOptions', 'zaptecAppDownload', 'zaptecAccount', 'loadBalancing', 'chooseTibberOption', 'tibberApp', 'tibberAccount', 'wallboxOptions', 'wallboxAppDownload', 'wallboxAccount', 'alfenOptions', 'alfenAppDownload', 'alfenAccount', 'contact'];
+        const steps = ['intro', 'chooseType', 'chooseSolution', 'eflux', 'zaptecOptions', 'zaptecAppDownload', 'zaptecAccount', 'loadBalancing', 'chooseTibberOption', 'tibberApp', 'tibberAccount', 'contact'];
 
         function showStep(stepIndex) {
             steps.forEach((step, index) => {
@@ -379,78 +379,6 @@
                 <li>Bij het scherm “Create your home profile for tailored insights” kunt u kiezen voor “Do it later” als u dit later wilt configureren.</li>
             </ol>
             <p>Ondersteuning bij installatie: De installateur zal u begeleiden bij het koppelen van de Tibber Pulse met uw app.</p>
-            <div class="button-container">
-                <button onclick="nextStep()">Volgende</button>
-            </div>
-        </section>
-
-        <section id="wallboxOptions" class="section" style="display:none;">
-            <h2>Kies een Optie voor Wallbox</h2>
-            <div class="button-container">
-                <button onclick="chooseWallboxOption('app')">Wallbox App Downloaden</button>
-                <button onclick="chooseWallboxOption('account')">Wallbox Account Aanmaken</button>
-            </div>
-        </section>
-
-        <section id="wallboxAppDownload" class="section steps" style="display:none;">
-            <h3>Wallbox App Downloaden</h3>
-            <ol>
-                <li>Open de App Store (voor iOS-apparaten) of de Google Play Store (voor Android-apparaten) op uw mobiele toestel.</li>
-                <li>Typ “Wallbox” in de zoekbalk.</li>
-                <li>Zoek naar "Wallbox".</li>
-                <li>Tik op de app en druk vervolgens op de "installeren" knop om de app op uw toestel te installeren.</li>
-            </ol>
-            <div class="button-container">
-                <button onclick="nextStep()">Volgende</button>
-            </div>
-        </section>
-
-        <section id="wallboxAccount" class="section steps" style="display:none;">
-            <h3>Wallbox Account Aanmaken</h3>
-            <ol>
-                <li>Open de Wallbox app op uw mobiele apparaat.</li>
-                <li>Tik op de knop “Aanmelden”.</li>
-                <li>Voer uw gegevens in en kies een wachtwoord. Vink het vakje aan bij “Ik ga akkoord met de gebruikersvoorwaarden”.</li>
-                <li>Klik op “Account aanmaken”. U ontvangt een bevestigingsmail met een link om uw account definitief te activeren.</li>
-                <li>Activeer uw account via de link in de ontvangen e-mail.</li>
-                <li>Na activatie kunt u terugkeren naar de app en inloggen met het e-mailadres en wachtwoord dat u heeft ingesteld.</li>
-            </ol>
-            <div class="button-container">
-                <button onclick="nextStep()">Volgende</button>
-            </div>
-        </section>
-
-        <section id="alfenOptions" class="section" style="display:none;">
-            <h2>Kies een Optie voor Alfen</h2>
-            <div class="button-container">
-                <button onclick="chooseAlfenOption('app')">Alfen App Downloaden</button>
-                <button onclick="chooseAlfenOption('account')">Alfen Account Aanmaken</button>
-            </div>
-        </section>
-
-        <section id="alfenAppDownload" class="section steps" style="display:none;">
-            <h3>Alfen App Downloaden</h3>
-            <ol>
-                <li>Open de App Store (voor iOS-apparaten) of de Google Play Store (voor Android-apparaten) op uw mobiele toestel.</li>
-                <li>Typ “Alfen” in de zoekbalk.</li>
-                <li>Zoek naar "Alfen".</li>
-                <li>Tik op de app en druk vervolgens op de "installeren" knop om de app op uw toestel te installeren.</li>
-            </ol>
-            <div class="button-container">
-                <button onclick="nextStep()">Volgende</button>
-            </div>
-        </section>
-
-        <section id="alfenAccount" class="section steps" style="display:none;">
-            <h3>Alfen Account Aanmaken</h3>
-            <ol>
-                <li>Open de Alfen app op uw mobiele apparaat.</li>
-                <li>Tik op de knop “Aanmelden”.</li>
-                <li>Voer uw gegevens in en kies een wachtwoord. Vink het vakje aan bij “Ik ga akkoord met de gebruikersvoorwaarden”.</li>
-                <li>Klik op “Account aanmaken”. U ontvangt een bevestigingsmail met een link om uw account definitief te activeren.</li>
-                <li>Activeer uw account via de link in de ontvangen e-mail.</li>
-                <li>Na activatie kunt u terugkeren naar de app en inloggen met het e-mailadres en wachtwoord dat u heeft ingesteld.</li>
-            </ol>
             <div class="button-container">
                 <button onclick="nextStep()">Volgende</button>
             </div>
