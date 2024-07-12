@@ -1,2 +1,2 @@
-# HSM
-HSM
+# Installatiegids
+Installatiegids
