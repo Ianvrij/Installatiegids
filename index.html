@@ -40,9 +40,12 @@
             height: 80px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            text-align: center;
         }
         .header .logo-wrapper {
+            position: absolute;
+            left: 20px;
             display: flex;
             align-items: center;
         }
@@ -53,8 +56,6 @@
         .header h1 {
             font-size: 1.5em;
             margin: 0;
-            text-align: center;
-            flex: 1;
         }
         .section {
             background: #fff;
@@ -190,6 +191,7 @@
                 text-align: center;
             }
             .header .logo-wrapper {
+                position: static;
                 margin-bottom: 10px;
             }
             .header img {
