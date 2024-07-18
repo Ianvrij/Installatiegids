@@ -89,6 +89,7 @@
             color: white;
             transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block;
         }
         .button-container button:hover {
             background: #005bb5;
@@ -220,17 +221,19 @@
     </style>
     <script>
         let currentStep = 0;
-        const steps = ['intro', 'chooseType', 'chooseSolution', 'eflux', 'chooseSolutionAfterEflux', 'zaptecOptions', 'zaptecAppDownload', 'zaptecAccount', 'wallboxOptions', 'wallboxAppDownload', 'wallboxAccount', 'alfenOptions', 'alfenAppDownload', 'alfenAccount', 'loadBalancing', 'chooseTibberOption', 'tibberApp', 'tibberAccount', 'contact'];
+        let selectedSolution = '';
+        const steps = ['intro', 'chooseType', 'chooseSolution', 'eflux', 'chooseSolutionAfterEflux', 'zaptecOptions', 'zaptecAppDownload', 'zaptecAccount', 'wallboxOptions', 'wallboxAppDownload', 'wallboxAccount', 'alfenOptions', 'alfenAppDownload', 'alfenAccount', 'loadBalancing', 'chooseTibberOption', 'tibberApp', 'tibberAccount', 'contact', 'zaptecLoadBalancingText'];
         const stepHistory = [];
 
         function showStep(stepIndex) {
-            stepHistory.push(currentStep);
-            steps.forEach((step, index) => {
-                document.getElementById(step).style.display = index === stepIndex ? 'block' : 'none';
-            });
-            currentStep = stepIndex;
-            document.getElementById('backButton').style.display = stepIndex > 0 && stepIndex < steps.length - 1 ? 'block' : 'none';
-        }
+    stepHistory.push(currentStep);
+    steps.forEach((step, index) => {
+        document.getElementById(step).style.display = index === stepIndex ? 'block' : 'none';
+    });
+    currentStep = stepIndex;
+    document.getElementById('backButton').style.display = stepIndex > 0 && stepIndex < steps.length - 1 || stepIndex === 19 ? 'block' : 'none';
+}
+
 
         function nextStep() {
             if (currentStep < steps.length - 1) {
@@ -258,6 +261,7 @@
         }
 
         function chooseSolution(solution) {
+            selectedSolution = solution;
             if (solution === 'zaptec') {
                 showStep(5);
             } else if (solution === 'wallbox') {
@@ -270,6 +274,7 @@
         }
 
         function chooseSolutionAfterEflux(solution) {
+            selectedSolution = solution;
             if (solution === 'zaptec') {
                 showStep(5);
             } else if (solution === 'wallbox') {
@@ -305,11 +310,25 @@
             }
         }
 
+        function showLoadBalancingOptions() {
+            if (selectedSolution === 'zaptec') {
+                document.getElementById('zaptecLoadBalancing').style.display = 'inline-block';
+                document.getElementById('tibberLoadBalancing').style.display = 'inline-block';
+            } else if (selectedSolution === 'wallbox') {
+                document.getElementById('zaptecLoadBalancing').style.display = 'none';
+                document.getElementById('tibberLoadBalancing').style.display = 'inline-block';
+            } else if (selectedSolution === 'alfen') {
+                document.getElementById('zaptecLoadBalancing').style.display = 'none';
+                document.getElementById('tibberLoadBalancing').style.display = 'none';
+            }
+            showStep(14);
+        }
+
         function chooseLoadBalancingOption(option) {
             if (option === 'tibber') {
                 showStep(15);
             } else if (option === 'zaptec') {
-                showStep(15);
+                showStep(19);
             } else {
                 showStep(18);
             }
@@ -339,14 +358,15 @@
     <div class="container">
         <section id="intro" class="section">
             <h2>Welkom bij de Installatiegids</h2>
-            <p>Om een soepele installatie te waarborgen, verzoeken wij u om vooraf de benodigde accounts aan te maken. In de bijgevoegde documentatie vindt u gedetailleerde instructies voor het registreren van accounts en het installeren van de benodigde apps voor uw nieuwe laadoplossingen.</p>
+            <p>Om een soepele installatie van uw laadoplossingen te garanderen, verzoeken wij u vriendelijk om vooraf de benodigde accounts aan te maken. In deze gids vindt u gedetailleerde instructies voor het registreren van accounts en het installeren van de noodzakelijke apps voor uw nieuwe laadstations.</p>
+            <p>Deze installatiegids is ontworpen om u stap voor stap door het proces te leiden. U begint met het kiezen of uw laadpaal voor zakelijk of privé gebruik is. Vervolgens selecteert u uw specifieke laadoplossing (Zaptec, Wallbox of Alfen). Afhankelijk van uw keuze, krijgt u gedetailleerde instructies voor het aanmaken van de benodigde accounts en het installeren van de juiste apps. Ook wordt u begeleid bij het instellen van loadbalancing, indien van toepassing.</p>
             <p class="important">Belangrijk:</p>
             <ul>
-                <li class="important">E-Flux: Controleer uw offerte om te zien of u van E-Flux gebruik maakt. Indien ja, maak dan een E-Flux account aan.</li>
-                <li class="important">Zaptec: Als u een Zaptec laadoplossing heeft, maak dan een account aan bij Zaptec.</li>
-                <li class="important">Tibber: Voor alle installaties is het noodzakelijk een Tibber account aan te maken voor de loadbalancing.</li>
+                <li class="important">Zakelijk of Privé: Indien de laadpaal zakelijk wordt gebruikt, dient er een E-Flux account aangemaakt te worden. Privégebruikers kunnen deze stap overslaan.</li>
+                <li class="important">Laadvoorziening: Afhankelijk van uw gekozen laadpaal (Zaptec, Wallbox of Alfen) dient u een account aan te maken bij de betreffende leverancier en hun app te downloaden. Deze apps zijn essentieel voor het beheer en de monitoring van uw laadpaal.</li>
+                <li class="important">Loadbalancing: Voor bepaalde laadoplossingen is een account voor loadbalancing nodig. Als u een Zaptec laadpaal heeft gekozen, dient u een account aan te maken voor Tibber of Zaptec Loadbalancing. Voor Wallbox is alleen een Tibber account nodig. Voor Alfen is geen account voor loadbalancing nodig.</li>
             </ul>
-            <p>Deze stappen zijn essentieel voor de goede werking van uw laadstations en om alle functionaliteiten optimaal te kunnen benutten.</p>
+            <p>Wij raden u aan om elke stap zorgvuldig te volgen om een probleemloze installatie te waarborgen. Mocht u tijdens het proces vragen hebben, aarzel dan niet om contact met ons op te nemen. Wij staan klaar om u te helpen.</p>
             <div class="button-container">
                 <button onclick="nextStep()">Volgende</button>
             </div>
@@ -436,7 +456,7 @@
                 <img src="ZaptecAccount3.jpg" alt="Zaptec Account Screenshot 3">
             </div>
             <div class="button-container">
-                <button onclick="showStep(14)">Volgende</button>
+                <button onclick="showLoadBalancingOptions()">Volgende</button>
             </div>
         </section>
 
@@ -471,7 +491,7 @@
                 <li>Na activatie kunt u terugkeren naar de app en inloggen met het e-mailadres en wachtwoord dat u heeft ingesteld.</li>
             </ol>
             <div class="button-container">
-                <button onclick="showStep(14)">Volgende</button>
+                <button onclick="showLoadBalancingOptions()">Volgende</button>
             </div>
         </section>
 
@@ -506,15 +526,23 @@
                 <li>Na activatie kunt u terugkeren naar de app en inloggen met het e-mailadres en wachtwoord dat u heeft ingesteld.</li>
             </ol>
             <div class="button-container">
-                <button onclick="showStep(14)">Volgende</button>
+                <button onclick="showStep(18)">Volgende</button>
             </div>
         </section>
 
         <section id="loadBalancing" class="section" style="display:none;">
             <h2>Kies Loadbalancing Optie</h2>
             <div class="button-container">
-                <button onclick="chooseLoadBalancingOption('tibber')">Tibber</button>
-                <button onclick="chooseLoadBalancingOption('zaptec')">Zaptec</button>
+                <button id="tibberLoadBalancing" onclick="chooseLoadBalancingOption('tibber')">Tibber</button>
+                <button id="zaptecLoadBalancing" onclick="chooseLoadBalancingOption('zaptec')">Zaptec Loadbalancing</button>
+            </div>
+        </section>
+
+        <section id="zaptecLoadBalancingText" class="section steps" style="display:none;">
+            <h3>Zaptec Loadbalancing</h3>
+            <p>Voor de loadbalancing van Zaptec kan gebruik worden gemaakt van het account dat al eerder is aangemaakt.</p>
+            <div class="button-container">
+                <button onclick="showStep(18)">Volgende</button>
             </div>
         </section>
 
@@ -565,8 +593,18 @@
 
         <section id="contact" class="section" style="display:none;">
             <h3>Contact en Ondersteuning</h3>
-            <p>Heeft u nog vragen? Neem dan contact met ons op. Wij helpen u graag verder.</p>
-            <p>We zien u graag tijdens de installatie.</p>
+            <p>Om mogelijke teleurstellingen te voorkomen, verzoeken wij u vriendelijk rekening te houden met de volgende punten:</p>
+            <ul>
+                <li>Onze werkzaamheden vereisen stroom, wat betekent dat de werkplek volledig droog moet zijn. Wij vragen u om dit tijdig te controleren, bijvoorbeeld in de kruipruimte. Indien de werkplek niet droog is, verzoeken wij u dit minimaal 48 uur van tevoren aan ons door te geven. Wij zullen dan graag een nieuwe afspraak met u inplannen.</li>
+                <li>Indien de werkplek niet droog is en wij hiervan niet tijdig op de hoogte worden gebracht, zijn wij helaas genoodzaakt om een bedrag van €150,- exclusief BTW in rekening te brengen.</li>
+                <li>De werkplek dient goed toegankelijk te zijn. Indien u hierbij assistentie nodig heeft, kunnen wij u van dienst zijn tegen een starttarief van €85,-, gevolgd door een uurtarief.</li>
+            </ul>
+            <p>Wij danken u voor uw begrip en medewerking.</p>
+            <p>Einde van de voorbereiding. Heeft u nog vragen? Neem dan contact met ons op.</p>
+
+            <p>Met vriendelijke groet,</p>
+            <p>Team Henk Scholten Mobility</p>
+
             <div class="button-container">
                 <button onclick="location.reload()">Opnieuw Beginnen</button>
             </div>
@@ -590,7 +628,7 @@
             </div>
             <div>
                 <strong>E-mail</strong><br>
-                <a href="mailto:contact@henkscholtenmobility.nl">contact@henkscholtenmobility.nl</a>
+                <a href="mailto:contact@henkscholtenmobility.nl">laadpaalschouwing@henkscholtenmobility.nl</a>
             </div>
             <div>
                 <strong>Website</strong><br>
